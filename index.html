@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -9,6 +8,8 @@
     <title>Além do Código</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js" defer></script>
 </head>
 
@@ -16,108 +17,104 @@
 
     <main id="app-quiz">
 
-        <!-- TELA INICIAL -->
-        <section id="tela-inicial">
+        <section id="tela-auth" hidden>
 
             <h1>Além do Código</h1>
 
             <p>
-                Explore seus interesses e descubra tendências
-                que você pode desenvolver na área de tecnologia.
+                Entre ou crie sua conta para guardar seus resultados
+                e acompanhar sua evolução com calma.
+            </p>
+
+            <div class="abas">
+                <button id="aba-login" class="aba ativa" type="button">Entrar</button>
+                <button id="aba-cadastro" class="aba" type="button">Criar conta</button>
+            </div>
+
+            <form id="form-auth">
+                <input id="campo-nome" type="text" placeholder="Como podemos te chamar?" autocomplete="name" hidden>
+                <input id="campo-email" type="email" placeholder="Seu e-mail" autocomplete="email" required>
+                <input id="campo-senha" type="password" placeholder="Sua senha (mínimo 6 caracteres)"
+                    autocomplete="current-password" minlength="6" required>
+
+                <button id="botao-auth" type="submit">Entrar</button>
+            </form>
+
+            <p id="mensagem-auth" role="status" aria-live="polite"></p>
+
+        </section>
+
+        <section id="tela-inicial" hidden>
+
+            <div class="barra-usuario">
+                <span id="saudacao"></span>
+                <button id="sair" class="botao-secundario" type="button">Sair</button>
+            </div>
+
+            <h1>Além do Código</h1>
+
+            <p>
+                Aqui não existe resposta certa ou errada. Responda do seu jeito e,
+                no final, mostramos quais áreas da tecnologia mais combinam com você.
             </p>
 
             <button id="iniciar" type="button">
-                Começar Quiz
+                Bora começar
             </button>
+
+            <div id="historico" hidden>
+                <h3>Seus resultados anteriores</h3>
+                <p class="dica-historico">Clique em um deles para rever os detalhes.</p>
+                <ul id="lista-historico"></ul>
+            </div>
 
         </section>
 
-
-        <!-- TELA DO QUIZ: começa oculta -->
         <section id="tela-quiz" hidden>
 
             <header>
-
-                <!-- Atualizar conforme a pergunta atual -->
-                <span id="numero-pergunta">
-                    Pergunta 1 de 30
-                </span>
-
-                <!-- Atualizar conforme as respostas, se houver pontuação -->
-                <span id="pontuacao" hidden>
-                    Pontuação: 0
-                </span>
-
+                <span id="numero-pergunta">Pergunta 1 de 30</span>
+                <span id="porcentagem-quiz">0%</span>
             </header>
 
-            <!-- Progresso geral do quiz -->
             <div id="progresso-container">
-
-                <label for="progresso">
-                    Progresso do quiz
-                </label>
-
-                <progress id="progresso"
-                          value="0"
-                          max="30">
-                </progress>
-
+                <label for="progresso">Seu progresso</label>
+                <progress id="progresso" value="0" max="30"></progress>
             </div>
 
-
-            <!-- ENUNCIADO E ALTERNATIVAS -->
             <section id="pergunta-container">
 
-                <h2 id="pergunta">
-                    A pergunta atual aparecerá aqui.
-                </h2>
+                <h2 id="pergunta">A pergunta atual aparecerá aqui.</h2>
 
-                <div id="alternativas">
-                    <!--
-                        O JavaScript deve inserir aqui
-                        as alternativas da pergunta atual.
-                    -->
-                </div>
+                <div id="alternativas"></div>
 
-                <!-- Avisos de validação e orientação -->
-                <p id="mensagem-quiz"
-                   role="status"
-                   aria-live="polite">
-                </p>
+                <p id="mensagem-quiz" role="status" aria-live="polite"></p>
 
             </section>
 
-
-            <!-- NAVEGAÇÃO -->
-            <footer>
-
-                <button id="proxima"
-                        type="button"
-                        disabled>
-                    Próxima pergunta
-                </button>
-
+            <footer class="acoes-quiz">
+                <button id="voltar" class="botao-secundario" type="button" disabled>Voltar</button>
+                <button id="proxima" type="button" disabled>Próxima pergunta</button>
             </footer>
+
+            <p class="dica-teclado">Dica: use as teclas 1 a 4 para responder, Enter para avançar e a seta esquerda para voltar.</p>
 
         </section>
 
-
-        <!-- TELA DE RESULTADO: começa oculta -->
         <section id="tela-resultado" hidden>
 
-            <h1>Seu resultado</h1>
+            <h1 id="titulo-resultado">Seu resultado</h1>
 
-            <!-- Resultado calculado pelo JavaScript -->
-            <div id="resultado-final">
+            <div id="resultado-final"></div>
+
+            <section id="detalhes-resultado"></section>
+
+            <p id="status-salvo" role="status" aria-live="polite"></p>
+
+            <div class="acoes-resultado">
+                <button id="refazer" class="botao-secundario" type="button">Refazer o quiz</button>
+                <button id="reiniciar" type="button">Voltar ao início</button>
             </div>
-
-            <!-- Espaço para explicação e sugestões -->
-            <section id="detalhes-resultado">
-            </section>
-
-            <button id="reiniciar" type="button">
-                Refazer Quiz
-            </button>
 
         </section>
 
