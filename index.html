@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Além do Código</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <main id="app-quiz">
+
+        <!-- TELA INICIAL -->
+        <section id="tela-inicial">
+
+            <h1>Além do Código</h1>
+
+            <p>
+                Explore seus interesses e descubra tendências
+                que você pode desenvolver na área de tecnologia.
+            </p>
+
+            <button id="iniciar" type="button">
+                Começar Quiz
+            </button>
+
+        </section>
+
+
+        <!-- TELA DO QUIZ: começa oculta -->
+        <section id="tela-quiz" hidden>
+
+            <header>
+
+                <!-- Atualizar conforme a pergunta atual -->
+                <span id="numero-pergunta">
+                    Pergunta 1 de 30
+                </span>
+
+                <!-- Atualizar conforme as respostas, se houver pontuação -->
+                <span id="pontuacao" hidden>
+                    Pontuação: 0
+                </span>
+
+            </header>
+
+            <!-- Progresso geral do quiz -->
+            <div id="progresso-container">
+
+                <label for="progresso">
+                    Progresso do quiz
+                </label>
+
+                <progress id="progresso"
+                          value="0"
+                          max="30">
+                </progress>
+
+            </div>
+
+
+            <!-- ENUNCIADO E ALTERNATIVAS -->
+            <section id="pergunta-container">
+
+                <h2 id="pergunta">
+                    A pergunta atual aparecerá aqui.
+                </h2>
+
+                <div id="alternativas">
+                    <!--
+                        O JavaScript deve inserir aqui
+                        as alternativas da pergunta atual.
+                    -->
+                </div>
+
+                <!-- Avisos de validação e orientação -->
+                <p id="mensagem-quiz"
+                   role="status"
+                   aria-live="polite">
+                </p>
+
+            </section>
+
+
+            <!-- NAVEGAÇÃO -->
+            <footer>
+
+                <button id="proxima"
+                        type="button"
+                        disabled>
+                    Próxima pergunta
+                </button>
+
+            </footer>
+
+        </section>
+
+
+        <!-- TELA DE RESULTADO: começa oculta -->
+        <section id="tela-resultado" hidden>
+
+            <h1>Seu resultado</h1>
+
+            <!-- Resultado calculado pelo JavaScript -->
+            <div id="resultado-final">
+            </div>
+
+            <!-- Espaço para explicação e sugestões -->
+            <section id="detalhes-resultado">
+            </section>
+
+            <button id="reiniciar" type="button">
+                Refazer Quiz
+            </button>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>
